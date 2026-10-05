@@ -87,8 +87,8 @@ export function Deck({ slides }: { slides: SlideDef[] }) {
           key={`wipe-${wipe.target.slide}`}
           className="wipe"
           style={{ backgroundColor: themeBg[wipeTheme] }}
-          initial={wipe.kind === 'circle' ? { clipPath: 'circle(0% at 50% 46%)' } : { y: '100%' }}
-          animate={wipe.kind === 'circle' ? { clipPath: 'circle(75% at 50% 46%)' } : { y: '0%' }}
+          initial={wipe.kind === 'circle' ? { clipPath: 'circle(0% at 50% 34%)' } : { y: '100%' }}
+          animate={wipe.kind === 'circle' ? { clipPath: 'circle(80% at 50% 34%)' } : { y: '0%' }}
           transition={{ duration: wipe.kind === 'circle' ? 0.7 : 0.56, ease: easeEmphasized }}
           onAnimationComplete={() => finishWipe.current()}
         />
