@@ -220,8 +220,8 @@ p {
   content: '';
   position: absolute;
   left: -32px;
-  top: 0.18em;
-  bottom: 0.18em;
+  top: 0;
+  bottom: 0;
   width: 4px;
   border-radius: 2px;
   background: var(--accent);

@@ -1,0 +1,179 @@
+/* ---------- Chat notification ---------- */
+
+.chat-toast {
+  position: absolute;
+  top: 56px;
+  right: 56px;
+  z-index: 20;
+  display: flex;
+  gap: 18px;
+  width: 460px;
+  padding: 20px 24px 22px 20px;
+  background: #ffffff;
+  color: var(--text-on-paper);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.chat-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+}
+
+.chat-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.chat-sender {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.chat-time {
+  font-size: 18px;
+  color: var(--muted-on-paper);
+}
+
+.chat-message {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 450;
+}
+
+/* ---------- Live preview ---------- */
+
+.live-preview {
+  position: relative;
+  background: var(--paper-1);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.live-preview-bar {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.live-preview-url {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--muted-on-paper);
+  letter-spacing: 0.02em;
+}
+
+.live-preview-body {
+  position: relative;
+  padding: 40px;
+}
+
+/* ---------- Code link ---------- */
+
+.code-link {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  overflow: visible;
+}
+
+/* ---------- Margin notes ---------- */
+
+.note {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.note .mono {
+  font-size: 0.85em;
+  color: var(--accent-text);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.edits-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.edits-counter .label {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.edits-counter .value {
+  font-family: var(--font-sans);
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.audience-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.audience-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.audience-form input {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--paper-line);
+  background: transparent;
+  padding: 6px 0 10px;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-on-paper);
+  outline: none;
+  transition: border-color 160ms var(--ease-out-expo);
+}
+
+.audience-form input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.card-placeholder {
+  width: 440px;
+  height: 160px;
+  border: 3px dashed var(--paper-line);
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 110px;
+  line-height: 1;
+  color: var(--muted-on-paper);
+}
