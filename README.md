@@ -2,6 +2,7 @@
 
 An interactive slide deck for a five-minute lightning talk on React's three core ideas: **components, props and state**. It is built with React, so every demo on screen is real React code running live.
 
+
 Live site: <https://jackpfeiffer1.github.io/React-Presentation/>
 
 ## Controls
