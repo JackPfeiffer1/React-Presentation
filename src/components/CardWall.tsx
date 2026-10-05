@@ -8,7 +8,9 @@ const CARD_H = 160
 const GAP = 32
 export const PITCH_X = CARD_W + GAP
 export const PITCH_Y = CARD_H + GAP
-const END_SCALE = 0.045
+const END_SCALE = 0.085
+const FADE_HI = 0.3
+const FADE_LO = 0.18
 const ACCENT = '#58C4DC'
 
 type Tile = HTMLCanvasElement
@@ -102,7 +104,7 @@ export function CardWall({ gridX, gridY, zoomed, ripple = false, baseBordered = 
     if (cardsRef.current) {
       cardsRef.current.style.transform = `translate(${ax - gcx}px, ${ay - gcy}px) scale(${s})`
       cardsRef.current.style.transformOrigin = `${gcx}px ${gcy}px`
-      cardsRef.current.style.opacity = String(s < 0.04 ? Math.max(0, (s - 0.02) / 0.02) : 1)
+      cardsRef.current.style.opacity = String(Math.min(1, Math.max(0, (s - FADE_LO) / (FADE_HI - FADE_LO))))
     }
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -112,7 +114,8 @@ export function CardWall({ gridX, gridY, zoomed, ripple = false, baseBordered = 
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    canvas.style.opacity = String(Math.min(1, t / 0.18))
+    const settle = Math.min(1, Math.max(0, (t - 0.8) / 0.2))
+    canvas.style.opacity = String(Math.min(1, t / 0.18) * (1 - 0.6 * settle * settle))
     if (t <= 0) return
 
     const ox = (gridX - gcx) * s + ax
@@ -143,15 +146,15 @@ export function CardWall({ gridX, gridY, zoomed, ripple = false, baseBordered = 
       ctx.restore()
     }
     // The real cards sit on top; clear the canvas under them so nothing peeks through while large.
-    if (s > 0.04) {
+    if (s > FADE_HI) {
       ctx.clearRect(ox * dpr - 8, oy * dpr - 8, (2 * PITCH_X - GAP) * s * dpr + 16, (3 * PITCH_Y - GAP) * s * dpr + 16)
     }
   }
 
   const drawRef = useRef(draw)
-  drawRef.current = draw
 
   useLayoutEffect(() => {
+    drawRef.current = draw
     drawRef.current()
   })
 

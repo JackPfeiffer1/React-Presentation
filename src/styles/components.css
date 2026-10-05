@@ -215,14 +215,14 @@
 
 .recap-item {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  align-items: baseline;
-  height: 210px;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+  height: 196px;
 }
 
 .recap-num {
   font-family: var(--font-display);
-  font-size: 200px;
+  font-size: 170px;
   line-height: 1;
   color: var(--accent-ink);
 }

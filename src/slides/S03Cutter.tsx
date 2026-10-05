@@ -1,5 +1,5 @@
 import { useAnimate } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CREDITS, img } from '../assets/images'
 import { Appear, Stamp } from '../components/Appear'
 import { Credit } from '../components/Credit'
@@ -12,18 +12,23 @@ import { play } from '../engine/sound'
 import type { SlideProps } from '../engine/types'
 import { colX, spanW } from './layout'
 
-const DOUGH_TOP = 400
-const DOUGH_H = 584
+const DOUGH_TOP = 468
+const DOUGH_H = 552
 const SLOT_X = (spanW(6) - 440) / 2
-const slotY = (i: number) => 24 + i * 184
+const slotY = (i: number) => 24 + i * 172
 
 export function S03Cutter({ step }: SlideProps) {
   const anim = useEnterAnim()
-  const [stamped, setStamped] = useState(step >= 1 && !anim ? 3 : 0)
+  const [stamped, setStampedState] = useState(step >= 1 && !anim ? 3 : 0)
+  const stampedRef = useRef(stamped)
   const [scope, animate] = useAnimate<HTMLDivElement>()
 
   useEffect(() => {
-    if (step < 1 || stamped >= 3) return
+    if (step < 1 || stampedRef.current >= 3) return
+    const setStamped = (n: number) => {
+      stampedRef.current = n
+      setStampedState(n)
+    }
     let cancelled = false
     const cutter = scope.current?.querySelector<HTMLDivElement>('.cutter')
     const dough = scope.current
@@ -53,7 +58,7 @@ export function S03Cutter({ step }: SlideProps) {
       cancelled = true
       unregister()
     }
-  }, [step])
+  }, [step, animate, scope])
 
   return (
     <>
@@ -62,7 +67,7 @@ export function S03Cutter({ step }: SlideProps) {
       </Appear>
 
       <MaskText as="h1" className="h1" text="Make the cutter *once.*" style={{ position: 'absolute', left: colX(7), top: 120, width: spanW(6) }} />
-      <Appear delay={0.35} style={{ position: 'absolute', left: colX(7), top: 270, width: spanW(6) }}>
+      <Appear delay={0.35} style={{ position: 'absolute', left: colX(7), top: 382, width: spanW(6) }}>
         <p className="body muted">Then stamp out as many as you want.</p>
       </Appear>
 

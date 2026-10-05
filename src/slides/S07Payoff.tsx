@@ -37,7 +37,12 @@ export function S07Payoff({ step }: SlideProps) {
         <Swap k={step >= 3 ? 'c' : edited ? 'b' : 'a'}>
           {!edited && step < 3 && <MaskText as="h2" className="h2" text="Same six cards. Now built with *React.*" />}
           {edited && step < 3 && <MaskText as="div" className="display" text="One." style={{ fontSize: 200 }} />}
-          {step >= 3 && <MaskText as="h2" className="h2" text="Not six. Not a million. *One.*" />}
+          {step >= 3 && (
+            <div style={{ width: spanW(8) }}>
+              <MaskText as="h2" className="h2" text="Not six. Not a million." />
+              <MaskText as="div" className="display" text="_One._" delay={0.35} style={{ fontSize: 200, marginTop: 8 }} />
+            </div>
+          )}
         </Swap>
       </div>
 
@@ -67,7 +72,7 @@ export function S07Payoff({ step }: SlideProps) {
           style={{
             position: 'absolute',
             left: step >= 3 ? colX(1) : GRID_X,
-            top: step >= 3 ? 330 : GRID_Y + 3 * PITCH_Y + 24,
+            top: step >= 3 ? 520 : GRID_Y + 3 * PITCH_Y + 24,
             zIndex: 5,
           }}
         >

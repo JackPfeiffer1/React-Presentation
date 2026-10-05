@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useDeck, progressFraction } from './deckStore'
 import { registerRunning } from './skipRegistry'
 import { SlideScope } from './SlideContext'
@@ -9,9 +9,9 @@ import type { SlideDef } from './types'
 import { easeEmphasized, easeInQuart } from '../styles/motion'
 import { Overlays } from '../components/Overlays'
 
-type Shown = { slide: number; mountKey: number; enterAnimated: boolean }
-type Wipe = { kind: 'wipe' | 'circle'; target: Shown }
 type ExitKind = 'fade' | 'instant'
+type Shown = { slide: number; mountKey: number; enterAnimated: boolean; exit: ExitKind }
+type Wipe = { kind: 'wipe' | 'circle'; target: Shown }
 
 const exitVariants = {
   exit: (kind: ExitKind) =>
@@ -22,38 +22,37 @@ const exitVariants = {
 
 export function Deck({ slides }: { slides: SlideDef[] }) {
   const deck = useDeck()
-  const [shown, setShown] = useState<Shown>({ slide: deck.slide, mountKey: deck.mountKey, enterAnimated: false })
+  const [shown, setShown] = useState<Shown>({ slide: deck.slide, mountKey: deck.mountKey, enterAnimated: false, exit: 'instant' })
   const [wipe, setWipe] = useState<Wipe | null>(null)
-  const exitKind = useRef<ExitKind>('instant')
 
+  // The deck store is the external system here; `shown` lags it so wipes can finish before the swap.
   useEffect(() => {
     if (deck.slide === shown.slide && deck.mountKey === shown.mountKey) return
     if (deck.mode === 'snap') {
-      exitKind.current = 'instant'
+      // oxlint-disable-next-line react/set-state-in-effect
       setWipe(null)
-      setShown({ slide: deck.slide, mountKey: deck.mountKey, enterAnimated: false })
+      setShown({ slide: deck.slide, mountKey: deck.mountKey, enterAnimated: false, exit: 'instant' })
       return
     }
     if (deck.slide === shown.slide) return
     const from = slides[shown.slide]
     const to = slides[deck.slide]
-    const target = { slide: deck.slide, mountKey: deck.mountKey, enterAnimated: true }
     if (to.enter || from.theme !== to.theme) {
-      setWipe({ kind: to.enter ?? 'wipe', target })
+      setWipe({ kind: to.enter ?? 'wipe', target: { slide: deck.slide, mountKey: deck.mountKey, enterAnimated: true, exit: 'instant' } })
       play('whoosh')
     } else {
-      exitKind.current = 'fade'
-      setShown(target)
+      setShown({ slide: deck.slide, mountKey: deck.mountKey, enterAnimated: true, exit: 'fade' })
     }
   }, [deck.slide, deck.mountKey, deck.mode, shown.slide, shown.mountKey, slides])
 
   const finishWipe = useRef<() => void>(() => {})
-  finishWipe.current = () => {
-    if (!wipe) return
-    exitKind.current = 'instant'
-    setShown(wipe.target)
-    setWipe(null)
-  }
+  useLayoutEffect(() => {
+    finishWipe.current = () => {
+      if (!wipe) return
+      setShown(wipe.target)
+      setWipe(null)
+    }
+  })
 
   useEffect(() => {
     if (!wipe) return
@@ -67,13 +66,13 @@ export function Deck({ slides }: { slides: SlideDef[] }) {
 
   return (
     <Stage theme={def.theme}>
-      <AnimatePresence mode="wait" custom={exitKind.current} initial={false}>
+      <AnimatePresence mode="wait" custom={shown.exit} initial={false}>
         <motion.div
           key={`${def.id}:${shown.mountKey}`}
           className={`slide theme-${def.theme}`}
           variants={exitVariants}
           exit="exit"
-          custom={exitKind.current}
+          custom={shown.exit}
           data-slide={def.id}
         >
           <SlideScope enterAnimated={shown.enterAnimated}>

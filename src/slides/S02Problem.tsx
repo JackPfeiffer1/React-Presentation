@@ -40,13 +40,10 @@ const PAUSES = [700, 520, 380, 260, 180, 120]
 
 export function S02Problem({ step }: SlideProps) {
   const anim = useEnterAnim()
-  const [edits, setEdits] = useState(step >= 3 && !anim ? 6 : 0)
+  const [editsState, setEdits] = useState(step >= 3 && !anim ? 6 : 0)
+  const edits = step >= 3 ? Math.max(1, editsState) : editsState
   const [instant, setInstant] = useState(false)
   const timer = useRef(0)
-
-  useEffect(() => {
-    if (step === 3 && edits === 0) setEdits(1)
-  }, [step, edits])
 
   useEffect(() => {
     if (step < 3 || edits >= 6) return
@@ -65,7 +62,7 @@ export function S02Problem({ step }: SlideProps) {
     if (step < 3 || edits === 0) return
     setBordered(edits)
     play('stamp')
-    if (edits < 6) timer.current = window.setTimeout(() => setEdits((e) => Math.min(6, e + 1)), PAUSES[edits])
+    if (edits < 6) timer.current = window.setTimeout(() => setEdits(edits + 1), PAUSES[edits])
   }
 
   const count = step === 0 ? 1 : 6

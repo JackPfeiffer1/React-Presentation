@@ -110,10 +110,11 @@ export function S08State({ step }: SlideProps) {
     <>
       <MaskText as="h1" className="h1" text="Components can *remember.*" style={{ position: 'absolute', left: colX(1), top: 120, width: spanW(12) }} />
 
-      <div style={{ position: 'absolute', left: colX(1), top: 340, width: spanW(7) }}>
+      <div style={{ position: 'absolute', left: colX(1), top: 340, width: spanW(7) + 60 }}>
         <TypedCode
           code={step >= 1 ? LIKE_BUTTON : ''}
           filename="LikeButton.jsx"
+          fontSize={30}
           focus={FOCUS[step] ?? null}
           idleCursor={step === 0}
           flash={step >= 4 ? { text: '{likes}', n: flashN } : null}
@@ -121,7 +122,7 @@ export function S08State({ step }: SlideProps) {
         />
       </div>
 
-      <div style={{ position: 'absolute', left: colX(8) + 24, top: 340, width: spanW(5) - 24 }}>
+      <div style={{ position: 'absolute', left: colX(8) + 84, top: 340, width: spanW(5) - 84 }}>
         <Swap k={step}>
           {step === 0 && <p className="note muted">This is called state: a component's memory.</p>}
           {step === 2 && (
