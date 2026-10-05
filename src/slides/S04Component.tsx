@@ -43,7 +43,7 @@ export function S04Component({ step }: SlideProps) {
       </Swap>
 
       {step >= 5 && (
-        <Appear style={{ position: 'absolute', left: colX(8) + 24, top: 340, width: spanW(5) - 24 }} sound="pop" from={{ opacity: 0, y: 40, scale: 0.96 }}>
+        <Appear delay={0.22} style={{ position: 'absolute', left: colX(8) + 24, top: 340, width: spanW(5) - 24 }} sound="pop" from={{ opacity: 0, y: 40, scale: 0.96 }}>
           <LivePreview>
             <div style={{ display: 'grid', placeItems: 'center', minHeight: 300 }}>
               <CardV1 />

@@ -17,8 +17,6 @@ type Props = {
   delay?: number
 }
 
-const DIGITS = '0123456789'
-
 function format(v: number, decimals: number, group: boolean) {
   const fixed = v.toFixed(decimals)
   if (!group) return fixed
@@ -60,33 +58,19 @@ export function Counter({ value, decimals = 0, duration = 1.4, group = true, cla
   }, [value, duration, delay])
 
   const text = format(shown, decimals, group)
+  // Fixed-width digit boxes keep the number from jittering while it counts, even in fonts without tabular figures.
   return (
-    <span className={className} style={{ display: 'inline-flex', fontVariantNumeric: 'tabular-nums', ...style }} aria-label={format(value, decimals, group)}>
+    <span className={className} style={{ display: 'inline-flex', alignItems: 'baseline', fontVariantNumeric: 'tabular-nums', ...style }} aria-label={format(value, decimals, group)}>
       {[...text].map((ch, i) =>
-        DIGITS.includes(ch) ? (
-          <span key={`${text.length - i}`} style={{ display: 'inline-block', height: '1em', lineHeight: 1, overflow: 'hidden', position: 'relative' }}>
-            <span
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                transform: `translateY(${-Number(ch)}em)`,
-                transition: 'transform 260ms cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            >
-              {[...DIGITS].map((d) => (
-                <span key={d} style={{ height: '1em', lineHeight: 1 }}>
-                  {d}
-                </span>
-              ))}
-            </span>
-          </span>
-        ) : (
-          <span key={`${text.length - i}`} style={{ lineHeight: 1, height: '1em' }}>
+        /\d/.test(ch) ? (
+          <span key={i} style={{ display: 'inline-block', width: '1ch', textAlign: 'center' }}>
             {ch}
           </span>
+        ) : (
+          <span key={i}>{ch}</span>
         ),
       )}
-      {suffix && <span style={{ lineHeight: 1 }}>{suffix}</span>}
+      {suffix && <span>{suffix}</span>}
     </span>
   )
 }

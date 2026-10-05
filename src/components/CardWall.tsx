@@ -114,8 +114,8 @@ export function CardWall({ gridX, gridY, zoomed, ripple = false, baseBordered = 
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const settle = Math.min(1, Math.max(0, (t - 0.8) / 0.2))
-    canvas.style.opacity = String(Math.min(1, t / 0.18) * (1 - 0.6 * settle * settle))
+    const settle = Math.min(1, Math.max(0, (t - 0.45) / 0.45))
+    canvas.style.opacity = String(Math.min(1, t / 0.18) * (1 - 0.68 * settle))
     if (t <= 0) return
 
     const ox = (gridX - gcx) * s + ax
