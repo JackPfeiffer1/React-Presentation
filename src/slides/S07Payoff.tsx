@@ -47,7 +47,7 @@ export function S07Payoff({ step }: SlideProps) {
         initial={false}
         transition={{ duration: 0.4 }}
       >
-        <TypedCode code={step >= 2 ? CARD_V3 : CARD_V2} filename="Card.jsx" fontSize={26} speed={14} focus={step === 2 ? [3] : null} onDone={onDone} />
+        <TypedCode code={step >= 2 ? CARD_V3 : CARD_V2} filename="Card.jsx" fontSize={26} speed={14} focus={step === 2 ? [3] : null} typeIn={false} onDone={onDone} />
       </motion.div>
 
       <CardWall gridX={GRID_X} gridY={GRID_Y} zoomed={step >= 3} ripple={step >= 3}>
@@ -69,8 +69,6 @@ export function S07Payoff({ step }: SlideProps) {
             left: step >= 3 ? colX(1) : GRID_X,
             top: step >= 3 ? 330 : GRID_Y + 3 * PITCH_Y + 24,
             zIndex: 5,
-            background: step >= 3 ? 'var(--paper-0)' : 'transparent',
-            padding: step >= 3 ? '16px 24px 16px 0' : 0,
           }}
         >
           <span className="label">Edits</span>

@@ -23,7 +23,20 @@ const shot = async (i) => {
 }
 await shot(0)
 for (let i = 1; i <= Number(presses); i++) {
-  await page.keyboard.press('ArrowRight')
+  const typing = await page.evaluate(() => document.activeElement?.tagName === 'INPUT')
+  if (typing) {
+    await page.keyboard.type('Taylor Swift', { delay: 40 })
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Singer', { delay: 40 })
+    await page.waitForTimeout(400)
+    await shot(`${i}a`)
+    await page.keyboard.press('Enter')
+    await page.waitForTimeout(800)
+    await shot(`${i}b`)
+    await page.keyboard.press('PageDown')
+  } else {
+    await page.keyboard.press('ArrowRight')
+  }
   await page.waitForTimeout(Number(wait))
   await shot(i)
 }

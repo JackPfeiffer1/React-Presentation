@@ -92,7 +92,7 @@ export function S02Problem({ step }: SlideProps) {
         initial={false}
         transition={{ duration: 0.4 }}
       >
-        <TypedCode code={code} lang="html" filename="index.html" fontSize={22} maxLines={14} speed={SPEEDS[Math.max(0, edits - 1)]} instant={instant || step < 3} onDone={onEditDone} />
+        <TypedCode code={code} lang="html" filename="index.html" fontSize={22} maxLines={14} speed={SPEEDS[Math.max(0, edits - 1)]} instant={instant || step < 3} typeIn={false} onDone={onEditDone} />
       </motion.div>
 
       <CardWall gridX={GRID_X} gridY={GRID_Y} zoomed={step >= 4}>
@@ -131,8 +131,6 @@ export function S02Problem({ step }: SlideProps) {
             left: step >= 4 ? colX(1) : GRID_X,
             top: step >= 4 ? 300 : GRID_Y + 3 * PITCH_Y + 24,
             zIndex: 5,
-            background: step >= 4 ? 'var(--paper-0)' : 'transparent',
-            padding: step >= 4 ? '16px 24px 16px 0' : 0,
           }}
         >
           <span className="label">Edits</span>
@@ -143,7 +141,7 @@ export function S02Problem({ step }: SlideProps) {
       )}
 
       {step >= 4 && (
-        <Appear delay={0.9} style={{ position: 'absolute', left: colX(1), top: 420, zIndex: 5, background: 'var(--paper-0)', padding: '8px 24px 8px 0' }}>
+        <Appear delay={0.9} style={{ position: 'absolute', left: colX(1), top: 420, zIndex: 5 }}>
           <p className="body">Instagram has billions of posts.</p>
         </Appear>
       )}

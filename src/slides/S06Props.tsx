@@ -60,7 +60,7 @@ export function S06Props({ step }: SlideProps) {
     <>
       {/* Left: the component and how it is used */}
       <div style={{ position: 'absolute', left: colX(1), top: 120, width: spanW(7), display: 'flex', flexDirection: 'column', gap: 24 }}>
-        <TypedCode code={step >= 2 ? CARD_V2 : CARD_V1} filename="Card.jsx" fontSize={30} speed={30} marks={DEF_MARKS} />
+        <TypedCode code={step >= 2 ? CARD_V2 : CARD_V1} filename="Card.jsx" fontSize={30} speed={30} marks={DEF_MARKS} typeIn={false} />
         {step >= 3 && (
           <Appear>
             <TypedCode

@@ -27,7 +27,7 @@ export function S05Tag({ step }: SlideProps) {
       </Swap>
 
       <div style={{ position: 'absolute', left: colX(1), top: 300, width: spanW(7), display: 'flex', flexDirection: 'column', gap: 24 }}>
-        <TypedCode code={FOLDED} filename="Card.jsx" fontSize={30} style={{ opacity: 0.55 }} />
+        <TypedCode code={FOLDED} filename="Card.jsx" fontSize={30} typeIn={false} />
         <TypedCode code={appCode(typedLines)} filename="App.jsx" fontSize={30} speed={30} onDone={() => setShownCards(typedLines)} />
       </div>
 

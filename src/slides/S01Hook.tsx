@@ -37,9 +37,24 @@ export function ReactAtom({ size, draw, delay = 0, rotate = true }: { size: numb
       aria-label="React logo"
     >
       <g fill="none" stroke="var(--accent)" strokeWidth={0.5}>
-        {[0, 60, 120].map((deg, i) => (
-          <motion.ellipse key={deg} cx={0} cy={0} rx={11} ry={4.2} transform={`rotate(${deg})`} {...orbit(i)} />
-        ))}
+        {[0, 60, 120].map((deg, i) =>
+          draw ? (
+            <g key={deg} transform={`rotate(${deg})`}>
+              <motion.ellipse cx={0} cy={0} rx={11} ry={4.2} {...orbit(i)} />
+              <motion.ellipse
+                cx={0}
+                cy={0}
+                rx={11}
+                ry={4.2}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.05, delay: delay + i * 0.14 + 0.72 }}
+              />
+            </g>
+          ) : (
+            <ellipse key={deg} cx={0} cy={0} rx={11} ry={4.2} transform={`rotate(${deg})`} />
+          ),
+        )}
       </g>
       <motion.circle
         cx={0}

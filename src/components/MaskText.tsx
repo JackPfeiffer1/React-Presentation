@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import type { CSSProperties, ElementType } from 'react'
+import { Fragment, type CSSProperties, type ElementType } from 'react'
 import { useEnterAnim } from '../engine/SlideContext'
 import { easeOutExpo } from '../styles/motion'
 
@@ -16,11 +16,27 @@ type Props = {
   letters?: boolean
 }
 
+type Kind = 'plain' | 'em' | 'accent'
+
 function parse(text: string) {
+  let mode: Kind = 'plain'
   return text.split(' ').map((raw) => {
-    if (/^\*.+\*[.,!?]?$/.test(raw)) return { word: raw.replace(/\*/g, ''), kind: 'em' as const }
-    if (/^_.+_[.,!?]?$/.test(raw)) return { word: raw.replace(/_/g, ''), kind: 'accent' as const }
-    return { word: raw, kind: 'plain' as const }
+    let word = raw
+    let kind: Kind = mode
+    for (const [marker, k] of [['*', 'em'], ['_', 'accent']] as const) {
+      if (word.startsWith(marker)) {
+        word = word.slice(1)
+        kind = k
+        mode = k
+      }
+      const close = new RegExp(`\\${marker}([.,!?]?)$`)
+      if (close.test(word)) {
+        word = word.replace(close, '$1')
+        kind = k
+        mode = 'plain'
+      }
+    }
+    return { word, kind }
   })
 }
 
@@ -49,10 +65,10 @@ export function MaskText({ text, className, style, as = 'div', delay = 0, stagge
         })
         const content = w.kind === 'em' ? <em className="serif-italic">{inner}</em> : w.kind === 'accent' ? <span className="accent-text">{inner}</span> : inner
         return (
-          <span key={wi} style={{ whiteSpace: 'nowrap' }}>
-            {content}
+          <Fragment key={wi}>
+            <span style={{ whiteSpace: 'nowrap' }}>{content}</span>
             {wi < words.length - 1 ? ' ' : ''}
-          </span>
+          </Fragment>
         )
       })}
     </Tag>

@@ -8,7 +8,7 @@ const CARD_H = 160
 const GAP = 32
 export const PITCH_X = CARD_W + GAP
 export const PITCH_Y = CARD_H + GAP
-const END_SCALE = 0.012
+const END_SCALE = 0.045
 const ACCENT = '#58C4DC'
 
 type Tile = HTMLCanvasElement

@@ -33,6 +33,8 @@ type Props = {
   maxLines?: number
   fontSize?: number
   delay?: number
+  /** Type the initial code out when this panel appears. Off for code the audience has already seen. */
+  typeIn?: boolean
   onDone?: () => void
   className?: string
   style?: CSSProperties
@@ -123,11 +125,12 @@ export function TypedCode({
   maxLines,
   fontSize,
   delay = 0,
+  typeIn = true,
   onDone,
   className,
   style,
 }: Props) {
-  const animOnMount = useEnterAnim()
+  const animOnMount = useEnterAnim() && typeIn
   const [chars, setChars] = useState<Char[]>(() => (animOnMount ? [] : toChars(code)))
   const [cursor, setCursor] = useState(() => (animOnMount ? 0 : code.length))
   const [running, setRunning] = useState(false)
@@ -249,7 +252,7 @@ export function TypedCode({
   return (
     <div className={`code-panel ${className ?? ''}`} style={{ ...(fontSize ? { fontSize } : null), ...style }}>
       {filename && <div className="code-filename">{filename}</div>}
-      <div style={maxLines ? { height: maxLines * lineHeightPx, overflow: 'hidden' } : undefined}>
+      <div style={maxLines ? { height: Math.min(maxLines, lines.length) * lineHeightPx, overflow: 'hidden', transition: 'height 420ms cubic-bezier(0.16, 1, 0.3, 1)' } : undefined}>
         <div className="code-body" ref={bodyRef} style={{ transition: 'transform 420ms cubic-bezier(0.16, 1, 0.3, 1)' }}>
           {lines.map((line, li) => (
             <div
