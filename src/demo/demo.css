@@ -1,0 +1,81 @@
+/* Styles shared by the plain HTML cards (slide 2) and the React <Card /> (slides 4-7). */
+
+.card {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 24px;
+  align-content: center;
+  width: 440px;
+  height: 160px;
+  padding: 20px 24px;
+  background: #ffffff;
+  color: var(--text-on-paper);
+  border: 4px solid transparent;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-sans);
+  transition:
+    border-color 320ms var(--ease-out-expo),
+    transform 320ms var(--ease-out-expo);
+}
+
+.card img {
+  grid-row: 1 / span 2;
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 14px;
+  filter: grayscale(1) contrast(1.05);
+  background: var(--paper-1);
+}
+
+.card h2 {
+  align-self: end;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card p {
+  align-self: start;
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 450;
+  color: var(--muted-on-paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card.bordered {
+  border-color: var(--accent);
+}
+
+/* The LikeButton demo */
+.like-demo button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  height: 104px;
+  padding: 0 40px;
+  border: 0;
+  border-radius: 52px;
+  background: #ffffff;
+  color: var(--text-on-paper);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-sans);
+  font-size: 48px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out-expo);
+}
+
+.like-demo button:active {
+  transform: scale(0.94);
+}

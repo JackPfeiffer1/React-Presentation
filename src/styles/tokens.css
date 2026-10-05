@@ -1,0 +1,46 @@
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+@import '@fontsource-variable/inter-tight/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
+:root {
+  --ink-0: #0a0a0a;
+  --ink-1: #141414;
+  --ink-2: #222222;
+  --ink-line: #2e2e2e;
+  --paper-0: #f4f2ee;
+  --paper-1: #eae7e1;
+  --paper-line: #d6d2ca;
+  --text-on-ink: #f4f2ee;
+  --muted-on-ink: #9a9893;
+  --text-on-paper: #0f0f0f;
+  --muted-on-paper: #5e5b55;
+  --accent: #58c4dc;
+  --accent-ink: #087ea4;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.1);
+
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, Menlo, monospace;
+
+  --fs-display: 240px;
+  --fs-h1: 120px;
+  --fs-h2: 72px;
+  --fs-body: 40px;
+  --fs-code: 34px;
+  --fs-caption: 24px;
+  --fs-credit: 14px;
+
+  --margin: 120px;
+  --gutter: 24px;
+  --col: 118px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+  --dur-micro: 160ms;
+  --dur-standard: 420ms;
+  --dur-hero: 720ms;
+  --dur-reveal: 1400ms;
+}
