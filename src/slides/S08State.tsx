@@ -14,7 +14,10 @@ import type { SlideProps } from '../engine/types'
 import { springPop } from '../styles/motion'
 import { colX, spanW } from './layout'
 
-const FOCUS: Record<number, number[]> = { 2: [2], 3: [4], 4: [5] }
+const PY_CLASS = ['class Post:', '    def __init__(self):', '        self.likes = 0', '', '    def like(self):', '        self.likes += 1'].join('\n')
+const PY_USAGE = ['', '', 'a = Post()', 'b = Post()', 'a.like()', 'a.like()'].join('\n')
+
+const FOCUS: Record<number, number[]> = { 4: [2], 5: [4], 6: [5] }
 
 /**
  * Hosts the real <LikeButton /> untouched and watches what it renders,
@@ -54,10 +57,10 @@ function LikeHost({ onLikes, register }: { onLikes: (n: number) => void; registe
   )
 }
 
-function MemoryBox({ value, small = false }: { value: number; small?: boolean }) {
+function MemoryBox({ value, label = 'likes', small = false }: { value: number; label?: string; small?: boolean }) {
   return (
     <div className={`memory-box ${small ? 'small' : ''}`}>
-      <span className="memory-label">likes</span>
+      <span className="memory-label">{label}</span>
       <motion.span key={value} className="memory-value" initial={{ scale: 1.25 }} animate={{ scale: 1 }} transition={springPop}>
         <Counter value={value} from={value} duration={0.25} />
       </motion.span>
@@ -103,47 +106,114 @@ function MultiDemo() {
   )
 }
 
+const PARTS: [string, string][] = [
+  ['likes', 'the value right now'],
+  ['setLikes', 'the function that changes it'],
+  ['0', 'the value it starts with'],
+]
+
+function Breakdown() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <p className="note">
+        One line, three parts.
+      </p>
+      {PARTS.map(([code, meaning], i) => (
+        <Appear key={code} delay={0.25 + i * 0.35} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span className="mono" style={{ fontSize: 34, fontWeight: 600, color: 'var(--accent-text)' }}>
+            {code}
+          </span>
+          <span className="note muted" style={{ fontSize: 30 }}>
+            {meaning}
+          </span>
+        </Appear>
+      ))}
+    </div>
+  )
+}
+
 export function S08State({ step }: SlideProps) {
   const [flashN, setFlashN] = useState(0)
+  const react = step >= 3
 
   return (
     <>
       <MaskText as="h1" className="h1" text="Components can *remember.*" style={{ position: 'absolute', left: colX(1), top: 120, width: spanW(12) }} />
 
-      <div style={{ position: 'absolute', left: colX(1), top: 340, width: spanW(7) + 60 }}>
-        <TypedCode
-          code={step >= 1 ? LIKE_BUTTON : ''}
-          filename="LikeButton.jsx"
-          fontSize={30}
-          focus={FOCUS[step] ?? null}
-          idleCursor={step === 0}
-          flash={step >= 4 ? { text: '{likes}', n: flashN } : null}
-          style={{ minHeight: 580 }}
-        />
-      </div>
+      <Swap k={react ? 'jsx' : 'py'} style={{ position: 'absolute', left: colX(1), top: 340, width: spanW(7) + 60 }}>
+        {react ? (
+          <TypedCode
+            code={LIKE_BUTTON}
+            filename="LikeButton.jsx"
+            fontSize={30}
+            focus={FOCUS[step] ?? null}
+            flash={step >= 6 ? { text: '{likes}', n: flashN } : null}
+            style={{ minHeight: 580 }}
+          />
+        ) : (
+          <TypedCode
+            code={step === 0 ? '' : step === 1 ? PY_CLASS : PY_CLASS + PY_USAGE}
+            lang="python"
+            filename="post.py"
+            fontSize={30}
+            idleCursor={step === 0}
+            style={{ minHeight: 580 }}
+          />
+        )}
+      </Swap>
 
       <div style={{ position: 'absolute', left: colX(8) + 84, top: 340, width: spanW(5) - 84 }}>
         <Swap k={step}>
-          {step === 0 && <p className="note muted">This is called state: a component's memory.</p>}
-          {step === 2 && (
+          {step === 0 && <p className="note">A like button has to remember how many likes it has.</p>}
+          {step === 1 && (
             <p className="note">
-              <span className="mono">useState</span> gives it a memory.
+              Remember Python classes?
               <br />
-              <span className="muted">It starts at 0.</span>
+              <span className="muted">
+                <span className="mono">self.likes</span> belongs to one object.
+              </span>
             </p>
           )}
-          {step === 3 && <p className="note">When it's clicked: add one.</p>}
-          {step === 4 && <p className="note">Show what's in memory. React redraws the button every time it changes.</p>}
-          {step === 5 && <p className="note">Every copy remembers on its own.</p>}
+          {step === 2 && <p className="note">Two objects, two separate counts.</p>}
+          {step === 3 && (
+            <p className="note">
+              React calls a component&rsquo;s memory <em>state.</em>
+            </p>
+          )}
+          {step === 4 && <Breakdown />}
+          {step === 5 && (
+            <p className="note">
+              On click, call <span className="mono">setLikes</span> with the new number.
+              <br />
+              <span className="muted">React saves it and redraws the button.</span>
+            </p>
+          )}
+          {step === 6 && (
+            <p className="note">
+              <span className="mono">{'{likes}'}</span> puts the current value on the button.
+            </p>
+          )}
+          {step === 7 && (
+            <p className="note">
+              Three buttons, like three objects.
+              <br />
+              <span className="muted">Each one keeps its own count.</span>
+            </p>
+          )}
         </Swap>
 
-        {(step === 2 || step === 3) && (
-          <Appear style={{ marginTop: 56 }} from={{ opacity: 0, scale: 0.9 }}>
-            <MemoryBox value={0} />
-          </Appear>
+        {step === 2 && (
+          <div style={{ marginTop: 56, display: 'flex', gap: 28 }}>
+            <Appear delay={0.9} from={{ opacity: 0, scale: 0.9 }}>
+              <MemoryBox value={2} label="a.likes" />
+            </Appear>
+            <Appear delay={1.1} from={{ opacity: 0, scale: 0.9 }}>
+              <MemoryBox value={0} label="b.likes" />
+            </Appear>
+          </div>
         )}
 
-        {step === 4 && (
+        {step === 6 && (
           <Appear style={{ marginTop: 56 }} sound="pop">
             <LivePreview>
               <SingleDemo onChange={(n) => n > 0 && setFlashN(n)} />
@@ -151,7 +221,7 @@ export function S08State({ step }: SlideProps) {
           </Appear>
         )}
 
-        {step >= 5 && (
+        {step >= 7 && (
           <Appear style={{ marginTop: 40 }}>
             <LivePreview>
               <MultiDemo />

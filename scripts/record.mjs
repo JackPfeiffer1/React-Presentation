@@ -29,7 +29,7 @@ for (let i = 0; i < 120; i++) {
     await page.waitForTimeout(1800)
     await page.keyboard.press('PageDown')
   } else {
-    if (hash === '#/8/3') {
+    if (hash === '#/8/6' || hash === '#/8/7') {
       for (let k = 0; k < 3; k++) {
         await page.keyboard.press('h')
         await page.waitForTimeout(350)

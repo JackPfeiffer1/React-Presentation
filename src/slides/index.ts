@@ -20,7 +20,7 @@ export const slides: SlideDef[] = [
   { id: 'tag', title: 'Use it like a tag', theme: 'paper', lastStep: 4, Component: S05Tag },
   { id: 'props', title: 'Props: a component\'s parameters', theme: 'paper', lastStep: 5, Component: S06Props },
   { id: 'payoff', title: 'The payoff: one edit', theme: 'paper', lastStep: 3, Component: S07Payoff },
-  { id: 'state', title: 'State: a memory', theme: 'paper', lastStep: 5, Component: S08State },
+  { id: 'state', title: 'State: a memory', theme: 'paper', lastStep: 7, Component: S08State },
   { id: 'everywhere', title: "Why it's everywhere", theme: 'ink', lastStep: 3, Component: S09Everywhere },
   { id: 'recap', title: 'Recap', theme: 'paper', lastStep: 4, Component: S10Recap },
   { id: 'your-turn', title: 'Your turn', theme: 'ink', lastStep: 2, Component: S11YourTurn },

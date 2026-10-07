@@ -71,7 +71,7 @@ test('deep link opens the right slide and step', async ({ page }) => {
 })
 
 test('R resets the current slide demo', async ({ page }) => {
-  await open(page, '#/8/3')
+  await open(page, '#/8/5')
   await page.keyboard.press('r')
   await expect.poll(() => hash(page)).toBe('#/8/0')
   await expect(page.locator('.slide[data-slide="state"]')).toBeVisible()
@@ -114,7 +114,7 @@ test('jump menu goes to a typed slide number', async ({ page }) => {
 })
 
 test('the like button counts clicks', async ({ page }) => {
-  await open(page, '#/8/5')
+  await open(page, '#/8/7')
   const button = page.locator('.like-demo button').first()
   await button.click()
   await button.click()
