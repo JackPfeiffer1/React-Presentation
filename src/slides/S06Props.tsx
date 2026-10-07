@@ -31,22 +31,27 @@ export function S06Props({ step }: SlideProps) {
   const anim = useEnterAnim()
   const [usageDoneFor, setUsageDoneFor] = useState(anim ? -1 : step)
   const [draft, setDraft] = useState({ name: '', role: '' })
-  const [made, setMade] = useState<CardData[]>([])
-  const nameRef = useRef<HTMLInputElement>(null)
+  const [made, setMade] = useState<CardData | null>(null)
+  const roleRef = useRef<HTMLInputElement>(null)
 
   const draftCard: CardData = { name: draft.name, role: draft.role, photo: 'you.jpg' }
-  const usageCode = step === 3 ? usage(ADA) : step === 4 ? usage(GRACE) : step >= 5 ? usage(draftCard) : ''
+  const usageCode = step === 3 ? usage(ADA) : step === 4 ? usage(GRACE) : step >= 5 ? usage(made ?? draftCard) : ''
   const useMarks: Mark[] = step === 3 ? [
     { id: 'use-name', text: `name="${ADA.name}"` },
     { id: 'use-role', text: `role="${ADA.role}"` },
   ] : []
 
   const submit = () => {
-    if (!draft.name.trim()) return
-    setMade((m) => [{ ...draftCard, name: draft.name.trim(), role: draft.role.trim() }, ...m].slice(0, 1))
-    setDraft({ name: '', role: '' })
+    const name = draft.name.trim()
+    const role = draft.role.trim()
+    if (!name) return
+    if (!role) {
+      roleRef.current?.focus()
+      return
+    }
+    ;(document.activeElement as HTMLElement | null)?.blur()
+    setMade({ name, role, photo: 'you.jpg' })
     play('stamp')
-    nameRef.current?.focus()
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -69,7 +74,7 @@ export function S06Props({ step }: SlideProps) {
               fontSize={28}
               speed={40}
               instant={step >= 5}
-              idleCursor={step >= 5}
+              idleCursor={step >= 5 && !made}
               marks={useMarks}
               onDone={() => setUsageDoneFor(step)}
             />
@@ -114,16 +119,15 @@ export function S06Props({ step }: SlideProps) {
               )}
               {step === 4 && usageDoneFor >= 4 && <Reveal key="grace" card={GRACE} />}
               {step >= 5 && (
-                <>
+                made ? (
+                  <Stamp key="made" silent>
+                    <CardV2 {...made} />
+                  </Stamp>
+                ) : (
                   <div style={{ opacity: draft.name ? 1 : 0.35, transition: 'opacity 200ms' }}>
                     <CardV2 {...draftCard} name={draft.name || 'Name'} role={draft.role || 'Job'} />
                   </div>
-                  {made.map((c, i) => (
-                    <Stamp key={`${c.name}-${made.length - i}`} silent>
-                      <CardV2 {...c} />
-                    </Stamp>
-                  ))}
-                </>
+                )
               )}
             </div>
           </LivePreview>
@@ -134,11 +138,11 @@ export function S06Props({ step }: SlideProps) {
         <Appear className="audience-form" style={{ position: 'absolute', left: colX(8) + 24, top: 270, width: spanW(5) - 24 }}>
           <label>
             <span className="kicker">name</span>
-            <input ref={nameRef} autoFocus value={draft.name} spellCheck={false} autoComplete="off" onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} onKeyDown={onKeyDown} />
+            <input autoFocus disabled={!!made} value={made ? made.name : draft.name} spellCheck={false} autoComplete="off" onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} onKeyDown={onKeyDown} />
           </label>
           <label>
             <span className="kicker">job</span>
-            <input value={draft.role} spellCheck={false} autoComplete="off" onChange={(e) => setDraft((d) => ({ ...d, role: e.target.value }))} onKeyDown={onKeyDown} />
+            <input ref={roleRef} disabled={!!made} value={made ? made.role : draft.role} spellCheck={false} autoComplete="off" onChange={(e) => setDraft((d) => ({ ...d, role: e.target.value }))} onKeyDown={onKeyDown} />
           </label>
         </Appear>
       )}
