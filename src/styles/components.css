@@ -387,16 +387,3 @@
 .audience-form input:focus {
   border-bottom-color: var(--accent);
 }
-
-.card-placeholder {
-  width: 440px;
-  height: 160px;
-  border: 3px dashed var(--paper-line);
-  border-radius: 20px;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 110px;
-  line-height: 1;
-  color: var(--muted-on-paper);
-}

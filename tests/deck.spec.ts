@@ -87,7 +87,7 @@ test('F5 does not reload the deck', async ({ page }) => {
 })
 
 test('typing in the audience form does not navigate, PageDown does', async ({ page }) => {
-  await open(page, '#/6/6')
+  await open(page, '#/6/5')
   const name = page.locator('.slide input').first()
   await expect(name).toBeFocused()
   await page.keyboard.type('Grace Brr ')

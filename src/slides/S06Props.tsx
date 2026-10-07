@@ -35,7 +35,7 @@ export function S06Props({ step }: SlideProps) {
   const nameRef = useRef<HTMLInputElement>(null)
 
   const draftCard: CardData = { name: draft.name, role: draft.role, photo: 'you.jpg' }
-  const usageCode = step === 3 ? usage(ADA) : step === 4 || step === 5 ? usage(GRACE) : step >= 6 ? usage(draftCard) : ''
+  const usageCode = step === 3 ? usage(ADA) : step === 4 ? usage(GRACE) : step >= 5 ? usage(draftCard) : ''
   const useMarks: Mark[] = step === 3 ? [
     { id: 'use-name', text: `name="${ADA.name}"` },
     { id: 'use-role', text: `role="${ADA.role}"` },
@@ -68,8 +68,8 @@ export function S06Props({ step }: SlideProps) {
               filename="App.jsx"
               fontSize={28}
               speed={40}
-              instant={step >= 6}
-              idleCursor={step >= 6}
+              instant={step >= 5}
+              idleCursor={step >= 5}
               marks={useMarks}
               onDone={() => setUsageDoneFor(step)}
             />
@@ -89,7 +89,7 @@ export function S06Props({ step }: SlideProps) {
         <div className="kicker" style={{ marginBottom: 24 }}>
           Props
         </div>
-        <Swap k={step <= 0 ? 'a' : step <= 2 ? 'b' : step === 3 ? 'c' : step <= 5 ? 'd' : 'e'}>
+        <Swap k={step <= 0 ? 'a' : step <= 2 ? 'b' : step === 3 ? 'c' : step === 4 ? 'd' : 'e'}>
           {step === 0 && <p className="note">Three cards, all Ada. Not very useful.</p>}
           {(step === 1 || step === 2) && <Analogy />}
           {step === 3 && (
@@ -97,13 +97,13 @@ export function S06Props({ step }: SlideProps) {
               <span className="mono">{'{ }'}</span> means: plug JavaScript in here.
             </p>
           )}
-          {(step === 4 || step === 5) && <p className="note">{step === 4 ? 'Quick prediction. What will this show?' : 'Grace Hopper. Same function, different props.'}</p>}
-          {step >= 6 && <p className="note">Your turn. Give me a name and a job.</p>}
+          {step === 4 && <p className="note">Same function, different props.</p>}
+          {step >= 5 && <p className="note">Your turn. Give me a name and a job.</p>}
         </Swap>
       </div>
 
       {step !== 1 && step !== 2 && (
-        <div style={{ position: 'absolute', left: colX(8) + 24, top: step >= 6 ? 430 : 340, width: spanW(5) - 24 }}>
+        <div style={{ position: 'absolute', left: colX(8) + 24, top: step >= 5 ? 430 : 340, width: spanW(5) - 24 }}>
           <LivePreview>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, minHeight: step === 0 ? 528 : 160 }}>
               {step === 0 && [0, 1, 2].map((i) => <CardV1 key={i} />)}
@@ -112,13 +112,8 @@ export function S06Props({ step }: SlideProps) {
                   <CardV2 {...ADA} />
                 </Stamp>
               )}
-              {step === 4 && (
-                <Appear key="placeholder">
-                  <div className="card-placeholder">?</div>
-                </Appear>
-              )}
-              {step === 5 && <Reveal key="grace" card={GRACE} />}
-              {step >= 6 && (
+              {step === 4 && usageDoneFor >= 4 && <Reveal key="grace" card={GRACE} />}
+              {step >= 5 && (
                 <>
                   <div style={{ opacity: draft.name ? 1 : 0.35, transition: 'opacity 200ms' }}>
                     <CardV2 {...draftCard} name={draft.name || 'Name'} role={draft.role || 'Job'} />
@@ -135,7 +130,7 @@ export function S06Props({ step }: SlideProps) {
         </div>
       )}
 
-      {step >= 6 && (
+      {step >= 5 && (
         <Appear className="audience-form" style={{ position: 'absolute', left: colX(8) + 24, top: 270, width: spanW(5) - 24 }}>
           <label>
             <span className="kicker">name</span>
@@ -178,9 +173,9 @@ function Analogy() {
       </div>
       <TypedCode code={'function Card(props) { … }\n\n<Card name="Ada" />'} fontSize={26} style={{ padding: '28px 36px' }} />
       <p className="note" style={{ marginTop: 24 }}>
-        Props are arguments.
+        Functions have parameters.
         <br />
-        <span className="muted">Same idea, new name.</span>
+        <span className="muted">Components have props.</span>
       </p>
     </div>
   )
