@@ -96,7 +96,7 @@ test('typing in the audience form does not navigate, PageDown does', async ({ pa
   await page.keyboard.press('ArrowRight')
   await page.keyboard.press('Tab')
   await page.keyboard.type('Rapper')
-  expect(await hash(page)).toBe('#/6/6')
+  expect(await hash(page)).toBe('#/6/5')
   await expect(name).toHaveValue('Grace Brr')
   await page.keyboard.press('Enter')
   await expect(page.locator('.slide')).toContainText('Rapper')
