@@ -73,12 +73,12 @@ export function S02Problem({ step }: SlideProps) {
       <div style={{ position: 'absolute', left: colX(1), top: 120, width: spanW(5), zIndex: 5 }}>
         <Swap k={step >= 4 ? 'c' : step >= 1 ? 'b' : 'a'}>
           {step === 0 && <MaskText as="h2" className="h2" text="This is a profile card." />}
-          {(step === 1 || step === 2 || step === 3) && <MaskText as="h2" className="h2" text="And here are *six.*" />}
+          {(step === 1 || step === 2 || step === 3) && <MaskText as="h2" className="h2" text="Now you need *six.*" />}
           {step >= 4 && <MaskText as="h2" className="h2" text="Now imagine a *million.*" />}
         </Swap>
         {step === 0 && (
           <Appear delay={0.3} style={{ marginTop: 20 }}>
-            <p className="caption">Plain HTML and CSS. Stuff you already know.</p>
+            <p className="caption">Built with the HTML and CSS you already know.</p>
           </Appear>
         )}
       </div>

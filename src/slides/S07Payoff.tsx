@@ -39,8 +39,8 @@ export function S07Payoff({ step }: SlideProps) {
           {edited && step < 3 && <MaskText as="div" className="display" text="One." style={{ fontSize: 200 }} />}
           {step >= 3 && (
             <div style={{ width: spanW(8) }}>
-              <MaskText as="h2" className="h2" text="Not six. Not a million." />
-              <MaskText as="div" className="display" text="_One._" delay={0.35} style={{ fontSize: 200, marginTop: 8 }} />
+              <MaskText as="h2" className="h2" text="A million cards?" />
+              <MaskText as="div" className="display" text="_Still one edit._" delay={0.35} style={{ fontSize: 200, marginTop: 8 }} />
             </div>
           )}
         </Swap>

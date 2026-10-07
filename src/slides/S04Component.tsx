@@ -22,21 +22,25 @@ export function S04Component({ step }: SlideProps) {
       <Swap k={step} style={{ position: 'absolute', left: colX(8) + 24, top: 380, width: spanW(5) - 24 }}>
         {step === 2 && (
           <p className="note">
-            A normal function.
+            A normal JavaScript function.
             <br />
-            <span className="muted">Its name starts with a capital letter.</span>
+            <span className="muted">The capital C tells React it's a component.</span>
           </p>
         )}
         {step === 3 && (
           <p className="note">
-            It hands back HTML.
+            It returns JSX.
             <br />
-            <span className="muted">That's what shows up on the page.</span>
+            <span className="muted">Basically HTML, written inside JavaScript.</span>
           </p>
         )}
         {step === 4 && (
           <p className="note">
-            One small difference: React spells <span className="mono">class</span> as <span className="mono">className</span>.
+            A few small differences from HTML.
+            <br />
+            <span className="muted">
+              For example, <span className="mono">class</span> becomes <span className="mono">className</span>.
+            </span>
           </p>
         )}
         {step === 0 && <p className="note muted">Remember functions? Something goes in, something comes out.</p>}
@@ -50,7 +54,7 @@ export function S04Component({ step }: SlideProps) {
             </div>
           </LivePreview>
           <p className="caption" style={{ marginTop: 32 }}>
-            That's it. A function that returns HTML is a component.
+            React runs Card() and puts what it returns on the page.
           </p>
         </Appear>
       )}

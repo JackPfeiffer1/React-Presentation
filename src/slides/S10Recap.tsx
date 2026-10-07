@@ -32,7 +32,7 @@ export function S10Recap({ step }: SlideProps) {
       </ol>
       {step >= 4 && (
         <Appear style={{ position: 'absolute', left: colX(1), top: 880, width: spanW(12) }}>
-          <p className="body muted">Write it once. Reuse it everywhere. Everything else in React is built on these three.</p>
+          <p className="body muted">Everything else in React builds on these three.</p>
         </Appear>
       )}
     </>

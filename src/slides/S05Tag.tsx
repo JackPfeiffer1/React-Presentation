@@ -23,7 +23,7 @@ export function S05Tag({ step }: SlideProps) {
   return (
     <>
       <Swap k={step >= 4 ? 'own' : 'use'} style={{ position: 'absolute', left: colX(1), top: 120, width: spanW(12) }}>
-        <MaskText as="h1" className="h1" text={step >= 4 ? 'Your own *HTML tag.*' : 'Use it like a *tag.*'} />
+        <MaskText as="h1" className="h1" text={step >= 4 ? 'One function, *three cards.*' : 'Use it like a *tag.*'} />
       </Swap>
 
       <div style={{ position: 'absolute', left: colX(1), top: 300, width: spanW(7), display: 'flex', flexDirection: 'column', gap: 24 }}>
