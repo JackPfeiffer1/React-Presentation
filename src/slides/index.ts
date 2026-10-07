@@ -18,7 +18,7 @@ export const slides: SlideDef[] = [
   { id: 'cookie-cutter', title: 'The big idea: a cookie cutter', theme: 'paper', lastStep: 2, Component: S03Cutter },
   { id: 'component', title: 'A component is a function', theme: 'paper', lastStep: 5, Component: S04Component },
   { id: 'tag', title: 'Use it like a tag', theme: 'paper', lastStep: 4, Component: S05Tag },
-  { id: 'props', title: 'Props: a component\'s parameters', theme: 'paper', lastStep: 5, Component: S06Props },
+  { id: 'props', title: 'Props: a component\'s parameters', theme: 'paper', lastStep: 4, Component: S06Props },
   { id: 'payoff', title: 'The payoff: one edit', theme: 'paper', lastStep: 3, Component: S07Payoff },
   { id: 'state', title: 'State: a memory', theme: 'paper', lastStep: 7, Component: S08State },
   { id: 'everywhere', title: "Why it's everywhere", theme: 'ink', lastStep: 3, Component: S09Everywhere },

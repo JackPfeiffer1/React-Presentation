@@ -1,4 +1,3 @@
-import { motion } from 'motion/react'
 import { useRef, useState } from 'react'
 import { Appear, Stamp } from '../components/Appear'
 import { CodeLink } from '../components/CodeLink'
@@ -16,7 +15,6 @@ import { colX, spanW } from './layout'
 type CardData = { name: string; role: string; photo: string }
 
 const ADA: CardData = { name: 'Ada Lovelace', role: 'First programmer', photo: 'ada.jpg' }
-const GRACE: CardData = { name: 'Grace Hopper', role: 'Navy admiral, coder', photo: 'grace.jpg' }
 
 function usage(p: CardData) {
   return [`<Card name="${p.name}"`, `      role="${p.role}"`, `      photo="${p.photo}" />`].join('\n')
@@ -35,7 +33,7 @@ export function S06Props({ step }: SlideProps) {
   const roleRef = useRef<HTMLInputElement>(null)
 
   const draftCard: CardData = { name: draft.name, role: draft.role, photo: 'you.jpg' }
-  const usageCode = step === 3 ? usage(ADA) : step === 4 ? usage(GRACE) : step >= 5 ? usage(made ?? draftCard) : ''
+  const usageCode = step === 3 ? usage(ADA) : step >= 4 ? usage(made ?? draftCard) : ''
   const useMarks: Mark[] = step === 3 ? [
     { id: 'use-name', text: `name="${ADA.name}"` },
     { id: 'use-role', text: `role="${ADA.role}"` },
@@ -73,8 +71,8 @@ export function S06Props({ step }: SlideProps) {
               filename="App.jsx"
               fontSize={28}
               speed={40}
-              instant={step >= 5}
-              idleCursor={step >= 5 && !made}
+              instant={step >= 4}
+              idleCursor={step >= 4 && !made}
               marks={useMarks}
               onDone={() => setUsageDoneFor(step)}
             />
@@ -94,7 +92,7 @@ export function S06Props({ step }: SlideProps) {
         <div className="kicker" style={{ marginBottom: 24 }}>
           Props
         </div>
-        <Swap k={step <= 0 ? 'a' : step <= 2 ? 'b' : step === 3 ? 'c' : step === 4 ? 'd' : 'e'}>
+        <Swap k={step <= 0 ? 'a' : step <= 2 ? 'b' : step === 3 ? 'c' : 'd'}>
           {step === 0 && <p className="note">Three cards, all Ada. Not very useful.</p>}
           {(step === 1 || step === 2) && <Analogy />}
           {step === 3 && (
@@ -102,13 +100,12 @@ export function S06Props({ step }: SlideProps) {
               <span className="mono">{'{ }'}</span> means: plug JavaScript in here.
             </p>
           )}
-          {step === 4 && <p className="note">Same function, different props.</p>}
-          {step >= 5 && <p className="note">Your turn. Give me a name and a job.</p>}
+          {step >= 4 && <p className="note">Your turn. Give me a name and a job.</p>}
         </Swap>
       </div>
 
       {step !== 1 && step !== 2 && (
-        <div style={{ position: 'absolute', left: colX(8) + 24, top: step >= 5 ? 430 : 340, width: spanW(5) - 24 }}>
+        <div style={{ position: 'absolute', left: colX(8) + 24, top: step >= 4 ? 430 : 340, width: spanW(5) - 24 }}>
           <LivePreview>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, minHeight: step === 0 ? 528 : 160 }}>
               {step === 0 && [0, 1, 2].map((i) => <CardV1 key={i} />)}
@@ -117,8 +114,7 @@ export function S06Props({ step }: SlideProps) {
                   <CardV2 {...ADA} />
                 </Stamp>
               )}
-              {step === 4 && usageDoneFor >= 4 && <Reveal key="grace" card={GRACE} />}
-              {step >= 5 && (
+              {step >= 4 && (
                 made ? (
                   <Stamp key="made" silent>
                     <CardV2 {...made} />
@@ -134,7 +130,7 @@ export function S06Props({ step }: SlideProps) {
         </div>
       )}
 
-      {step >= 5 && (
+      {step >= 4 && (
         <Appear className="audience-form" style={{ position: 'absolute', left: colX(8) + 24, top: 270, width: spanW(5) - 24 }}>
           <label>
             <span className="kicker">name</span>
@@ -147,21 +143,6 @@ export function S06Props({ step }: SlideProps) {
         </Appear>
       )}
     </>
-  )
-}
-
-function Reveal({ card }: { card: CardData }) {
-  const anim = useEnterAnim()
-  return (
-    <motion.div
-      initial={anim ? { rotateX: -90, opacity: 0 } : false}
-      animate={{ rotateX: 0, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-      style={{ transformPerspective: 900 }}
-      onAnimationStart={() => anim && play('pop')}
-    >
-      <CardV2 {...card} />
-    </motion.div>
   )
 }
 
