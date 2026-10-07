@@ -23,6 +23,6 @@ export const slides: SlideDef[] = [
   { id: 'state', title: 'State: a memory', theme: 'paper', lastStep: 7, Component: S08State },
   { id: 'everywhere', title: "Why it's everywhere", theme: 'ink', lastStep: 3, Component: S09Everywhere },
   { id: 'recap', title: 'Recap', theme: 'paper', lastStep: 4, Component: S10Recap },
-  { id: 'your-turn', title: 'Your turn', theme: 'ink', lastStep: 2, Component: S11YourTurn },
+  { id: 'your-turn', title: 'Your turn', theme: 'ink', lastStep: 0, Component: S11YourTurn },
   { id: 'close', title: 'Close', theme: 'ink', lastStep: 2, Component: S12Close },
 ]
