@@ -53,7 +53,7 @@ export function S09Everywhere({ step }: SlideProps) {
           </Appear>
           <Appear delay={0.3} className="timeline-row">
             <span className="timeline-year">2013</span>
-            <span>Given away for free, to everyone.</span>
+            <span>Released to the public, free and open source.</span>
           </Appear>
         </div>
       </div>

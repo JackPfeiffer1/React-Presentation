@@ -2,7 +2,7 @@ import { createHighlighterCore, type HighlighterCore } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 
 export type TokenClass = 'kw' | 'tag' | 'attr' | 'str' | 'props' | 'fn' | 'num' | 'punc' | 'comment' | 'plain'
-export type Lang = 'jsx' | 'html'
+export type Lang = 'jsx' | 'html' | 'python'
 
 let highlighter: HighlighterCore | null = null
 
@@ -10,7 +10,7 @@ export async function initHighlighter() {
   if (highlighter) return
   highlighter = await createHighlighterCore({
     themes: [import('shiki/themes/github-dark.mjs')],
-    langs: [import('shiki/langs/jsx.mjs'), import('shiki/langs/html.mjs')],
+    langs: [import('shiki/langs/jsx.mjs'), import('shiki/langs/html.mjs'), import('shiki/langs/python.mjs')],
     engine: createJavaScriptRegexEngine(),
   })
 }
@@ -26,7 +26,8 @@ function classify(scopes: string[]): TokenClass {
     if (s.startsWith('entity.name.tag')) return 'tag'
     if (s.startsWith('entity.other.attribute-name')) return 'attr'
     if (s.startsWith('variable.parameter') || s.startsWith('variable.other.object') || s.startsWith('variable.other.property')) return 'props'
-    if (s.startsWith('entity.name.function')) return 'fn'
+    if (s.startsWith('variable.language.special.self') || s.startsWith('variable.parameter.function.language.special.self')) return 'props'
+    if (s.startsWith('entity.name.function') || s.startsWith('entity.name.type.class') || s.startsWith('support.function.builtin')) return 'fn'
     if (s.startsWith('constant.numeric')) return 'num'
     if (s.startsWith('punctuation') || s.startsWith('keyword.operator') || s.startsWith('meta.brace')) return 'punc'
   }

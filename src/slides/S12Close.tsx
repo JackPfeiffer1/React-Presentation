@@ -85,11 +85,8 @@ export function S12Close({ step }: SlideProps) {
       )}
 
       {step >= 2 && (
-        <div style={{ position: 'absolute', left: 0, right: 0, top: 380, textAlign: 'center' }}>
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 420, textAlign: 'center' }}>
           <MaskText className="display" text="Thanks." letters stagger={0.04} style={{ fontSize: 280 }} />
-          <Appear delay={0.6} style={{ marginTop: 56 }}>
-            <p className="caption">jackpfeiffer1.github.io/React-Presentation</p>
-          </Appear>
         </div>
       )}
     </>
