@@ -1,7 +1,7 @@
 import { Appear } from '../components/Appear'
 import { MaskText } from '../components/MaskText'
 import type { SlideProps } from '../engine/types'
-import { colX, spanW } from './layout'
+import { colX } from './layout'
 
 const POINTS = [
   { term: 'Component', text: 'A function that returns HTML.' },
@@ -30,11 +30,6 @@ export function S10Recap({ step }: SlideProps) {
           ) : null,
         )}
       </ol>
-      {step >= 4 && (
-        <Appear style={{ position: 'absolute', left: colX(1), top: 880, width: spanW(12) }}>
-          <p className="body muted">Everything else in React builds on these three.</p>
-        </Appear>
-      )}
     </>
   )
 }

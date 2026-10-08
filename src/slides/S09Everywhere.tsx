@@ -58,22 +58,20 @@ export function S09Everywhere({ step }: SlideProps) {
         </div>
       </div>
 
-      {step >= 1 && (
-        <div style={{ position: 'absolute', left: colX(1) - 12, top: 420, width: spanW(7) }}>
-          <Appear from={{ opacity: 0, y: 60 }}>
-            <div className="display" style={{ fontSize: 300, lineHeight: 0.9 }}>
-              <Counter value={44.7} decimals={1} from={0} suffix="%" />
-            </div>
-          </Appear>
-          <Appear delay={0.5} style={{ marginTop: 32, paddingLeft: 12 }}>
-            <p className="body" style={{ maxWidth: 760 }}>
-              of developers in Stack Overflow's 2025 survey use React.
-            </p>
-          </Appear>
-        </div>
-      )}
+      <div style={{ position: 'absolute', left: colX(1) - 12, top: 420, width: spanW(7) }}>
+        <Appear delay={0.6} from={{ opacity: 0, y: 60 }}>
+          <div className="display" style={{ fontSize: 300, lineHeight: 0.9 }}>
+            <Counter value={44.7} decimals={1} from={0} suffix="%" delay={0.6} />
+          </div>
+        </Appear>
+        <Appear delay={1.1} style={{ marginTop: 32, paddingLeft: 12 }}>
+          <p className="body" style={{ maxWidth: 760 }}>
+            of developers in Stack Overflow's 2025 survey use React.
+          </p>
+        </Appear>
+      </div>
 
-      {step >= 2 && (
+      {step >= 1 && (
         <div style={{ position: 'absolute', left: colX(8), top: 440, width: spanW(5) }}>
           {BARS.map((b, i) => (
             <Bar key={b.label} {...b} i={i} />
@@ -84,7 +82,7 @@ export function S09Everywhere({ step }: SlideProps) {
         </div>
       )}
 
-      {step >= 3 && (
+      {step >= 2 && (
         <div className="logo-row">
           {LOGO_ROW.map((name, i) => (
             <Appear key={name} delay={i * 0.07} from={{ opacity: 0, y: 24 }} style={{ position: 'absolute', left: colX(1 + i * 2) }}>
@@ -94,7 +92,7 @@ export function S09Everywhere({ step }: SlideProps) {
         </div>
       )}
 
-      <Credit>{step >= 3 ? `${CREDITS.survey} ${CREDITS.logos}` : step >= 1 ? CREDITS.survey : ''}</Credit>
+      <Credit>{step >= 2 ? `${CREDITS.survey} ${CREDITS.logos}` : CREDITS.survey}</Credit>
     </>
   )
 }
