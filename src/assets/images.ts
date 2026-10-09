@@ -21,5 +21,4 @@ export const CREDITS = {
   you: 'Silhouette: AI-generated image.',
   cookie: 'Photo: "Keks ausstechen" by Anna reg, CC BY-SA 3.0 AT, via Wikimedia Commons.',
   logos: 'Logos: Simple Icons (CC0). Trademarks of their respective owners.',
-  survey: 'Source: Stack Overflow Developer Survey 2025, web frameworks and technologies (23,678 respondents).',
 }

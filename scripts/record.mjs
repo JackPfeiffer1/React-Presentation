@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test'
 
 const [wait = '2200'] = process.argv.slice(2)
 const url = process.env.DECK_URL ?? 'http://localhost:4173/React-Presentation/'
-const LAST = '#/12/2'
+const LAST = '#/11/2'
 const LONG = { '#/2/3': 12000, '#/2/4': 3500, '#/1/5': 3500, '#/7/3': 3500, '#/3/1': 3500 }
 
 const browser = await chromium.launch()

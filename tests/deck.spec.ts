@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-const LAST = '#/12/2'
+const LAST = '#/11/2'
 
 function trackErrors(page: Page) {
   const errors: string[] = []
@@ -54,14 +54,14 @@ test('steps through the whole deck forward and back without errors', async ({ pa
 })
 
 test('clicker keys navigate too', async ({ page }) => {
-  await open(page, '#/10/0')
+  await open(page, '#/9/0')
   await page.keyboard.press('PageDown')
-  await expect.poll(() => hash(page)).toBe('#/10/1')
+  await expect.poll(() => hash(page)).toBe('#/9/1')
   await page.keyboard.press('PageUp')
-  await expect.poll(() => hash(page)).toBe('#/10/0')
+  await expect.poll(() => hash(page)).toBe('#/9/0')
   await page.keyboard.press('.')
   await page.keyboard.press('b')
-  expect(await hash(page)).toBe('#/10/0')
+  expect(await hash(page)).toBe('#/9/0')
 })
 
 test('deep link opens the right slide and step', async ({ page }) => {
@@ -111,10 +111,10 @@ test('typing in the audience form does not navigate, PageDown does', async ({ pa
 test('jump menu goes to a typed slide number', async ({ page }) => {
   await open(page)
   await page.keyboard.press('g')
-  await page.keyboard.press('9')
+  await page.keyboard.press('8')
   await page.keyboard.press('Enter')
-  await expect.poll(() => hash(page)).toBe('#/9/0')
-  await expect(page.locator('.slide[data-slide="everywhere"]')).toBeVisible()
+  await expect.poll(() => hash(page)).toBe('#/8/0')
+  await expect(page.locator('.slide[data-slide="state"]')).toBeVisible()
 })
 
 test('the like button counts clicks', async ({ page }) => {
