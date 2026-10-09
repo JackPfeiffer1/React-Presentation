@@ -37,7 +37,7 @@ function Heart({ size, likes, onLike }: { size: number; likes: number; onLike: (
   )
 }
 
-export function S12Close({ step }: SlideProps) {
+export function S11Close({ step }: SlideProps) {
   const [likes, setLikes] = useState(0)
   const like = () => {
     setLikes((n) => n + 1)

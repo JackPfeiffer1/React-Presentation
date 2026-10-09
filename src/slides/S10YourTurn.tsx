@@ -3,7 +3,7 @@ import { Appear } from '../components/Appear'
 import { MaskText } from '../components/MaskText'
 import { colX, spanW } from './layout'
 
-export function S11YourTurn() {
+export function S10YourTurn() {
   return (
     <>
       <Appear style={{ position: 'absolute', left: colX(1), top: 370 }}>

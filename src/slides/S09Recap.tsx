@@ -9,7 +9,7 @@ const POINTS = [
   { term: 'State', text: 'Its memory.' },
 ]
 
-export function S10Recap({ step }: SlideProps) {
+export function S09Recap({ step }: SlideProps) {
   return (
     <>
       <Appear style={{ position: 'absolute', left: colX(1), top: 120 }}>

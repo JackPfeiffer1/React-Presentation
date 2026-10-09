@@ -50,10 +50,9 @@ npm test          # Playwright tests at three projector sizes
 ## Editing
 
 - **Slide order and step counts:** `src/slides/index.ts`. Each slide declares `lastStep`, which is how many presses it takes.
-- **A slide's words and timing:** `src/slides/S01Hook.tsx` … `S12Close.tsx`. Each slide renders from its `step` number, so `step >= 2 && …` means "appears on the second press".
+- **A slide's words and timing:** `src/slides/S01Hook.tsx` … `S11Close.tsx`. Each slide renders from its `step` number, so `step >= 2 && …` means "appears on the second press".
 - **Demo code shown on screen:** `src/demo/*.jsx`. The code typed out on the slides is read straight from these files (the part between `// #show` and `// #endshow`), so the code you see is the code that runs.
 - **People on the cards:** `src/demo/people.ts`. Their photos live in `public/`.
-- **Facts and stats:** `src/slides/S09Everywhere.tsx`. These come from the Stack Overflow 2025 Developer Survey.
 - **Look and feel:** `DESIGN.md` explains the design system; colors and sizes live in `src/styles/tokens.css`.
 - **Credits:** `CREDITS.md`, and the small credit lines on each slide via `src/assets/images.ts`.
 
